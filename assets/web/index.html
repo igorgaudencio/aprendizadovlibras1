@@ -3,70 +3,265 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AloMundo VLibras</title>
+    <title>Tela de Login</title>
+    
+    <!-- Importação dos ícones (Font Awesome) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
     <style>
+        /* --- Configurações Globais --- */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+
+        /* 
+         * A cor azul principal. 
+         * Ajustei para um tom que se aproxima muito do logo.
+        */
+        :root {
+            --cor-azul-principal: #004a99; 
+            /* --cor-azul-principal: #003B7C; / / Outra opção de azul */
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            /* Fundo cinza claro para destacar o "celular" */
+            background-color: #f0f2f5; 
+            
+            /* Centraliza o container do celular na tela do computador */
+            display: flex;
+            justify-content: center;
+            align-items: center;
             min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* --- O Container Principal (Simula o Celular) --- */
+        .mobile-container {
+            width: 100%;
+            max-width: 420px; /* Largura de um celular comum */
+            background-color: #ffffff;
+            border-radius: 30px; /* Bordas bem arredondadas */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden; /* Garante que o cabeçalho azul não vaze */
+        }
+
+        /* --- 1. Seção Superior (Azul) --- */
+        .header-section {
+            background-color: var(--cor-azul-principal);
+            color: #ffffff;
+            padding: 50px 20px 40px 20px; /* Mais preenchimento em cima */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 220px; /* Altura da seção azul */
+        }
+
+        /* Placeholder do Logo */
+        .logo-placeholder {
+            text-align: center;
+        }
+
+        /* Texto "MOSSORÓ" */
+        .logo-placeholder .logo-text-1 {
+            font-size: 24px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            opacity: 0.9;
+        }
+        
+        /* Texto "DIGITAL" */
+        .logo-placeholder .logo-text-2 {
+            font-size: 38px;
+            font-weight: 700; /* Negrito */
+            letter-spacing: 1px;
+        }
+
+        /* --- 2. Seção de Login (Branca) --- */
+        .login-section {
+            background-color: #ffffff;
+            padding: 40px 35px; /* Preenchimento interno */
+            
+            /* O "Card Ascendente" */
+            margin-top: -25px; /* Puxa para cima, sobrepondo o azul */
+            border-top-left-radius: 25px;
+            border-top-right-radius: 25px;
+            position: relative; /* Necessário para o margin-top funcionar bem */
+            
+            /* Centraliza os links do rodapé */
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            padding: 20px;
         }
-        .container {
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            text-align: center;
-            max-width: 600px;
+
+        /* Título "Entrar" */
+        .login-section h1 {
+            color: var(--cor-azul-principal);
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            width: 100%; /* Ocupa 100% para alinhar à esquerda */
+            text-align: left;
+        }
+
+        form {
             width: 100%;
         }
-        h1 {
-            color: #333;
+
+        /* Grupo de Input (Ícone + Campo) */
+        .input-group {
+            position: relative;
             margin-bottom: 20px;
-            font-size: 2.5em;
         }
-        p {
-            color: #666;
-            font-size: 1.2em;
-            line-height: 1.6;
+
+        .input-group input {
+            width: 100%;
+            padding: 18px 20px 18px 50px; /* Espaço para o ícone à esquerda */
+            border: none;
+            /* Fundo cinza claro, como na imagem */
+            background-color: #f7f8fa; 
+            border-radius: 12px; /* Bordas arredondadas */
+            font-size: 16px;
+            color: #333;
+        }
+
+        .input-group input::placeholder {
+            color: #999;
+        }
+
+        /* Ícones dentro dos inputs (Email, Senha) */
+        .input-group .input-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #888;
+            font-size: 18px;
+        }
+
+        /* Ícone do "olho" no campo de senha */
+        .input-group .password-toggle-icon {
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #888;
+            cursor: pointer;
+        }
+
+        /* Link "Esqueceu sua senha?" */
+        .forgot-password {
+            display: block; /* Para poder alinhar o texto */
+            text-align: right; /* Alinha à direita */
+            width: 100%;
+            margin-top: -10px; /* Puxa para perto do campo de senha */
             margin-bottom: 30px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--cor-azul-principal);
+            text-decoration: none;
         }
-        .highlight {
-            background: #ffeb3b;
-            padding: 2px 5px;
-            border-radius: 3px;
-        }
-        .content {
-            background: #f8f9fa;
+
+        /* Botão "Realizar login" */
+        .login-button {
+            width: 100%;
+            background-color: var(--cor-azul-principal);
+            color: #ffffff;
+            border: none;
             padding: 20px;
-            border-radius: 10px;
-            margin: 20px 0;
-            border-left: 4px solid #667eea;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 35px;
+            transition: background-color 0.2s ease;
         }
+
+        .login-button:hover {
+            background-color: #003b7c; /* Um azul um pouco mais escuro no hover */
+        }
+
+        /* Links do Rodapé */
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 18px; /* Espaço entre os links */
+        }
+
+        .footer-links a {
+            color: var(--cor-azul-principal);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        /* "Novo usuário? Criar conta" tem um negrito */
+        .footer-links .create-account {
+            font-weight: 600;
+        }
+        
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>👋 AloMundo VLibras!</h1>
-        
-        <div class="content">
-            <h3>Estou cansado chefe</h3>
-            <p>Mas o VLibras está funcionando! 😴</p>
-        </div>
 
-        <div class="content">
-            <p>Use o botão do VLibras para traduzir este conteúdo para Libras!</p>
-        </div>
+    <!-- 
+      Container principal que simula a tela do celular.
+      Ele é centralizado na tela do computador pelo CSS do <body>
+    -->
+    <div class="mobile-container">
+
+        <!-- 1. Seção Superior Azul -->
+        <header class="header-section">
+            <!-- Este é o placeholder para o logo -->
+            <div class="logo-placeholder">
+                <!-- 
+                  (Aqui entraria a imagem do brasão, 
+                   mas usei só o texto como placeholder) 
+                -->
+                <div class="logo-text-1">MOSSORÓ</div>
+                <div class="logo-text-2">DIGITAL</div>
+            </div>
+        </header>
+
+        <!-- 2. Seção Inferior Branca (Formulário) -->
+        <main class="login-section">
+
+            <h1>Entrar</h1>
+
+            <form action="#">
+                <!-- Campo de E-mail -->
+                <div class="input-group">
+                    <i class="fa-solid fa-envelope input-icon"></i>
+                    <input type="email" placeholder="E-mail" required>
+                </div>
+
+                <!-- Campo de Senha -->
+                <div class="input-group">
+                    <i class="fa-solid fa-lock input-icon"></i>
+                    <input type="password" placeholder="Senha" required>
+                    <i class="fa-solid fa-eye-slash password-toggle-icon"></i>
+                </div>
+
+                <a href="#" class="forgot-password">Esqueceu sua senha?</a>
+
+                <button type="submit" class="login-button">Realizar login</button>
+            </form>
+
+            <!-- Links de Rodapé -->
+            <div class="footer-links">
+                <a href="#" class="create-account">Novo usuário? Criar conta</a>
+                <a href="#" class="privacy-policy">Política e termos de privacidade</a>
+            </div>
+
+        </main>
+
     </div>
+
+</body>
+</html>
 
     <!-- VLibras Widget -->
     <div vw class="enabled">
